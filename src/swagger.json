@@ -1,0 +1,338 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Chapter 2 - Desafio 2 Documentando com Swagger",
+    "description": "Chapter 2 - Desafio 2 Documentando com Swagger",
+    "version": "1.0.0",
+    "contact": {
+      "email": "vitinho.dev@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Cria um novo usuário.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type":"string"
+                  }
+                },
+                "example": {
+                  "name": "Steve",
+                  "email":"example@email.com"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "0905263c-dbf3-49e8-b2bd-b355436ac9cf",
+                    "name": "Steve",
+                    "email": "example@email.com",
+                    "created_at": "2021-03-10T22:10:32:992Z",
+                    "updated_at": "2021-03-10T22:10:32:992Z"
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Email já está sendo utilizado.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User already exists with this email!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get":{
+        "tags": ["users"],
+        "summary":"Retorna todos os usuários",
+        "parameters":[
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "admin": false,
+                      "id": "0905263c-dbf3-49e8-b2bd-b355436ac9cf",
+                      "name": "Steve",
+                      "email": "example@email.com",
+                      "created_at": "2021-03-10T22:10:32:992Z",
+                      "updated_at": "2021-03-10T22:10:32:992Z"
+                    },
+                    {
+                      "admin": false,
+                      "id": "9e619c62-db79-4b53-9ff5-571e0d3dd931",
+                      "name": "John",
+                      "email": "example2@email.com",
+                      "created_at": "2021-03-20T22:10:32:992Z",
+                      "updated_at": "2021-03-20T22:10:32:992Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão ou Usuário não encontrado.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "You need to be an administrator to list all users."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}":{
+      "get":{
+        "tags": ["users"],
+        "summary": "Retorna um usuário especifico.",
+        "parameters":[
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "0905263c-dbf3-49e8-b2bd-b355436ac9cf",
+                    "name": "Steve",
+                    "email": "example@email.com",
+                    "created_at": "2021-03-10T22:10:32:992Z",
+                    "updated_at": "2021-03-10T22:10:32:992Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User dont exists"
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    },
+    "/users/{user_id}/admin":{
+      "patch":{
+        "tags": ["users"],
+        "summary": "Torna admin um usuário.",
+        "parameters":[
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": true,
+                    "id": "0905263c-dbf3-49e8-b2bd-b355436ac9cf",
+                    "name": "Steve",
+                    "email": "example@email.com",
+                    "created_at": "2021-03-10T22:10:32:992Z",
+                    "updated_at": "2021-03-10T22:10:32:992Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User dont exists"
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    }
+  },
+  "tags":[
+    {
+      "name": "users",
+      "description": "Gerenciamento de usuários."
+    }  
+  ]
+}
